@@ -53,59 +53,65 @@ const UserDataForm = () => {
   };
 
   return (
-    <div className="p-5 border border-gray-300 rounded-lg mt-5">
-      <h2 className="text-xl font-semibold">User Data Form</h2>
-      <div className="mt-4 space-y-3">
-        <div>
-          <label className="block font-medium">Name:</label>
+    <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-lg">
+      <h2 className="text-2xl font-semibold text-center text-gray-800">User Data Form</h2>
+      <div className="mt-6 space-y-4">
+        <div className="space-y-2">
+          <label className="block text-gray-700 font-medium">Name:</label>
           <input 
             type="text" 
             name="name" 
             value={userData.name} 
             onChange={handleChange} 
-            className="w-full p-2 border rounded" 
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all" 
+            placeholder="Enter your name"
           />
           {errors.name && <span className="text-red-500 text-sm">{errors.name}</span>}
         </div>
-        <div>
-          <label className="block font-medium">Address:</label>
+        <div className="space-y-2">
+          <label className="block text-gray-700 font-medium">Address:</label>
           <input 
             type="text" 
             name="address" 
             value={userData.address} 
             onChange={handleChange} 
-            className="w-full p-2 border rounded" 
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all" 
+            placeholder="Enter your address"
           />
           {errors.address && <span className="text-red-500 text-sm">{errors.address}</span>}
         </div>
-        <div>
-          <label className="block font-medium">Email:</label>
+        <div className="space-y-2">
+          <label className="block text-gray-700 font-medium">Email:</label>
           <input 
             type="email" 
             name="email" 
             value={userData.email} 
             onChange={handleChange} 
-            className="w-full p-2 border rounded" 
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all" 
+            placeholder="Enter your email"
           />
           {errors.email && <span className="text-red-500 text-sm">{errors.email}</span>}
         </div>
-        <div>
-          <label className="block font-medium">Phone:</label>
+        <div className="space-y-2">
+          <label className="block text-gray-700 font-medium">Phone:</label>
           <input 
             type="text" 
             name="phone" 
             value={userData.phone} 
             onChange={handleChange} 
-            className="w-full p-2 border rounded" 
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all" 
+            placeholder="Enter your phone number"
           />
           {errors.phone && <span className="text-red-500 text-sm">{errors.phone}</span>}
         </div>
-        <button 
-          className="bg-blue-500 text-white px-4 py-2 rounded mt-3" 
-          onClick={handleSave}
-        >
-          Save
-        </button>
+        <div className="flex justify-center mt-6">
+          <button 
+            className="bg-blue-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-600 transition-all transform hover:scale-105"
+            onClick={handleSave}
+          >
+            Save
+          </button>
+        </div>
       </div>
     </div>
   );
