@@ -1,12 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserData } from "../redux/UserSlice";
-
-
+import { useEffect } from "react";
 
 // User Data Form Component
 const UserDataForm = () => {
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.userData);
+  const originalData = useSelector((state) => state.originalData); // Assume you save initial state of form data
+
+  const hasChanges = JSON.stringify(userData) !== JSON.stringify(originalData);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -15,7 +17,26 @@ const UserDataForm = () => {
 
   const handleSave = () => {
     alert('User Data Saved Successfully!');
+    // Optionally, you could save the data to the server here and reset the originalData
   };
+
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      if (hasChanges) {
+        const message = "You have unsaved changes, are you sure you want to leave?";
+        event.returnValue = message; // Standard for most browsers
+        return message; // For some older browsers
+      }
+    };
+
+    // Add event listener to the beforeunload event
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [hasChanges]);
 
   return (
     <div className="p-5 border border-gray-300 rounded-lg mt-5">
@@ -71,6 +92,5 @@ const UserDataForm = () => {
     </div>
   );
 };
-
 
 export default UserDataForm;
