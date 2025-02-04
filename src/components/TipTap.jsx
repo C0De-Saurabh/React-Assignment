@@ -8,10 +8,8 @@ import TextStyle from "@tiptap/extension-text-style";
 import FontFamily from "@tiptap/extension-font-family";
 
 const Tiptap = () => {
-  // Get user data from Redux store
   const userData = useSelector((state) => state.userData);
 
-  // Prepare content using user data
   const content = `
     <p>
       ID: ${userData?.id || "N/A"}<br />
@@ -22,7 +20,6 @@ const Tiptap = () => {
     </p>
   `;
 
-  // Initialize the editor
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -36,7 +33,6 @@ const Tiptap = () => {
     content,
   });
 
-  // Toolbar component
   const MyEditorToolbar = () => {
     const fonts = [
       { label: "Default", value: "" },
@@ -48,10 +44,9 @@ const Tiptap = () => {
     ];
 
     return (
-      <div className="flex flex-wrap gap-2 mb-4 p-2 bg-gray-100 rounded shadow">
-        {/* Bold Button */}
+      <div className="flex flex-wrap gap-4 mb-4 p-4 bg-white rounded-lg shadow-md border border-gray-200">
         <button
-          className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200"
           onMouseDown={(e) => {
             e.preventDefault();
             editor.chain().focus().toggleBold().run();
@@ -60,9 +55,8 @@ const Tiptap = () => {
           Bold
         </button>
 
-        {/* Font Family Dropdown */}
         <select
-          className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
+          className="px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 transition duration-200"
           onChange={(e) => {
             const font = e.target.value;
             editor.chain().focus().setFontFamily(font).run();
@@ -75,9 +69,8 @@ const Tiptap = () => {
           ))}
         </select>
 
-        {/* Italic Button */}
         <button
-          className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200"
           onMouseDown={(e) => {
             e.preventDefault();
             editor.chain().focus().toggleItalic().run();
@@ -86,9 +79,8 @@ const Tiptap = () => {
           Italic
         </button>
 
-        {/* Underline Button */}
         <button
-          className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200"
           onMouseDown={(e) => {
             e.preventDefault();
             editor.chain().focus().toggleUnderline().run();
@@ -97,9 +89,8 @@ const Tiptap = () => {
           Underline
         </button>
 
-        {/* Strikethrough Button */}
         <button
-          className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200"
           onMouseDown={(e) => {
             e.preventDefault();
             editor.chain().focus().toggleStrike().run();
@@ -108,9 +99,8 @@ const Tiptap = () => {
           Strikethrough
         </button>
 
-        {/* Clear Formatting Button */}
         <button
-          className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+          className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition duration-200"
           onMouseDown={(e) => {
             e.preventDefault();
             editor.chain().focus().unsetAllMarks().run();
@@ -123,12 +113,9 @@ const Tiptap = () => {
   };
 
   return (
-    <div className="editor-container">
-      {/* Toolbar */}
+    <div className="max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-xl">
       <MyEditorToolbar />
-
-      {/* Editor Content */}
-      <div className="border p-4 rounded shadow">
+      <div className="border-2 border-gray-200 rounded-lg shadow-lg p-6 bg-gray-50">
         <EditorContent editor={editor} />
       </div>
     </div>
