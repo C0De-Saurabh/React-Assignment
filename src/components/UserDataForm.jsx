@@ -1,14 +1,19 @@
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserData } from "../redux/UserSlice";
-import { useEffect } from "react";
+import { useState } from "react";
+import { validateName, validateEmail, validatePhone, validateAddress } from "../utils/Validations";
 
 // User Data Form Component
 const UserDataForm = () => {
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.userData);
-  const originalData = useSelector((state) => state.originalData); // Assume you save initial state of form data
 
-  const hasChanges = JSON.stringify(userData) !== JSON.stringify(originalData);
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -16,27 +21,36 @@ const UserDataForm = () => {
   };
 
   const handleSave = () => {
-    alert('User Data Saved Successfully!');
-    // Optionally, you could save the data to the server here and reset the originalData
+    let formIsValid = true;
+    let newErrors = {};
+
+    // Validate each field
+    if (!validateName(userData.name)) {
+      newErrors.name = userData.name.trim() === "" ? "Name is required." : "Please enter a valid name (only alphabets and spaces).";
+      formIsValid = false;
+    }
+
+    if (!validateEmail(userData.email)) {
+      newErrors.email = userData.email.trim() === "" ? "Email is required." : "Please enter a valid email address.";
+      formIsValid = false;
+    }
+
+    if (!validatePhone(userData.phone)) {
+      newErrors.phone = userData.phone.trim() === "" ? "Phone number is required." : "Please enter a valid phone number (10 digits).";
+      formIsValid = false;
+    }
+
+    if (!validateAddress(userData.address)) {
+      newErrors.address = userData.address.trim() === "" ? "Address is required." : "Please enter a valid address.";
+      formIsValid = false;
+    }
+
+    setErrors(newErrors);
+
+    if (formIsValid) {
+      alert('User Data Saved Successfully!');
+    }
   };
-
-  useEffect(() => {
-    const handleBeforeUnload = (event) => {
-      if (hasChanges) {
-        const message = "You have unsaved changes, are you sure you want to leave?";
-        event.returnValue = message; // Standard for most browsers
-        return message; // For some older browsers
-      }
-    };
-
-    // Add event listener to the beforeunload event
-    window.addEventListener("beforeunload", handleBeforeUnload);
-
-    // Clean up the event listener when the component unmounts
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, [hasChanges]);
 
   return (
     <div className="p-5 border border-gray-300 rounded-lg mt-5">
@@ -51,6 +65,7 @@ const UserDataForm = () => {
             onChange={handleChange} 
             className="w-full p-2 border rounded" 
           />
+          {errors.name && <span className="text-red-500 text-sm">{errors.name}</span>}
         </div>
         <div>
           <label className="block font-medium">Address:</label>
@@ -61,6 +76,7 @@ const UserDataForm = () => {
             onChange={handleChange} 
             className="w-full p-2 border rounded" 
           />
+          {errors.address && <span className="text-red-500 text-sm">{errors.address}</span>}
         </div>
         <div>
           <label className="block font-medium">Email:</label>
@@ -71,6 +87,7 @@ const UserDataForm = () => {
             onChange={handleChange} 
             className="w-full p-2 border rounded" 
           />
+          {errors.email && <span className="text-red-500 text-sm">{errors.email}</span>}
         </div>
         <div>
           <label className="block font-medium">Phone:</label>
@@ -81,6 +98,7 @@ const UserDataForm = () => {
             onChange={handleChange} 
             className="w-full p-2 border rounded" 
           />
+          {errors.phone && <span className="text-red-500 text-sm">{errors.phone}</span>}
         </div>
         <button 
           className="bg-blue-500 text-white px-4 py-2 rounded mt-3" 
