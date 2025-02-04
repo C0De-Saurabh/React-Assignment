@@ -24,7 +24,9 @@ const App = () => {
             <Navbar />
             <div className="pt-20">
               <Routes>
+
                 <Route path="/" element={<HomePage />} />
+              
                 <Route
                   path="/counter"
                   element={
