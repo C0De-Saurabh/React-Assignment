@@ -12,21 +12,20 @@ import PrivateRoute from './components/PrivateRoute'; // Import PrivateRoute
 const App = () => {
   return (
     <Auth0Provider
-     domain={process.env.REACT_APP_AUTH0_DOMAIN}
-     clientId={process.env.REACT_APP_AUTH0_CLIENT_ID}
+      domain={process.env.REACT_APP_AUTH0_DOMAIN}
+      clientId={process.env.REACT_APP_AUTH0_CLIENT_ID}
       authorizationParams={{
         redirect_uri: window.location.origin,
       }}
     >
       <Provider store={store}>
         <Router>
-          <div className="font-sans">
+          <div className="font-sans bg-gradient-to-r from-blue-900 via-blue-800 to-blue-700 min-h-screen">
             <Navbar />
             <div className="pt-20">
               <Routes>
-
                 <Route path="/" element={<HomePage />} />
-              
+                
                 <Route
                   path="/counter"
                   element={

@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateUserData } from "../redux/UserSlice";
 import { useState } from "react";
 import { validateName, validateEmail, validatePhone, validateAddress } from "../utils/Validations";
+import { Person, Email, Phone, Home, Save } from "@mui/icons-material";
 
 // User Data Form Component
 const UserDataForm = () => {
@@ -58,50 +59,62 @@ const UserDataForm = () => {
       <div className="mt-6 space-y-4">
         <div className="space-y-2">
           <label className="block text-gray-700 font-medium">Name:</label>
-          <input 
-            type="text" 
-            name="name" 
-            value={userData.name} 
-            onChange={handleChange} 
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all" 
-            placeholder="Enter your name"
-          />
+          <div className="flex items-center border border-gray-300 rounded-lg">
+            <Person className="text-gray-500 ml-3" />
+            <input 
+              type="text" 
+              name="name" 
+              value={userData.name} 
+              onChange={handleChange} 
+              className="w-full p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all pl-2" 
+              placeholder="Enter your name"
+            />
+          </div>
           {errors.name && <span className="text-red-500 text-sm">{errors.name}</span>}
         </div>
         <div className="space-y-2">
           <label className="block text-gray-700 font-medium">Address:</label>
-          <input 
-            type="text" 
-            name="address" 
-            value={userData.address} 
-            onChange={handleChange} 
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all" 
-            placeholder="Enter your address"
-          />
+          <div className="flex items-center border border-gray-300 rounded-lg">
+            <Home className="text-gray-500 ml-3" />
+            <input 
+              type="text" 
+              name="address" 
+              value={userData.address} 
+              onChange={handleChange} 
+              className="w-full p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all pl-2" 
+              placeholder="Enter your address"
+            />
+          </div>
           {errors.address && <span className="text-red-500 text-sm">{errors.address}</span>}
         </div>
         <div className="space-y-2">
           <label className="block text-gray-700 font-medium">Email:</label>
-          <input 
-            type="email" 
-            name="email" 
-            value={userData.email} 
-            onChange={handleChange} 
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all" 
-            placeholder="Enter your email"
-          />
+          <div className="flex items-center border border-gray-300 rounded-lg">
+            <Email className="text-gray-500 ml-3" />
+            <input 
+              type="email" 
+              name="email" 
+              value={userData.email} 
+              onChange={handleChange} 
+              className="w-full p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all pl-2" 
+              placeholder="Enter your email"
+            />
+          </div>
           {errors.email && <span className="text-red-500 text-sm">{errors.email}</span>}
         </div>
         <div className="space-y-2">
           <label className="block text-gray-700 font-medium">Phone:</label>
-          <input 
-            type="text" 
-            name="phone" 
-            value={userData.phone} 
-            onChange={handleChange} 
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all" 
-            placeholder="Enter your phone number"
-          />
+          <div className="flex items-center border border-gray-300 rounded-lg">
+            <Phone className="text-gray-500 ml-3" />
+            <input 
+              type="text" 
+              name="phone" 
+              value={userData.phone} 
+              onChange={handleChange} 
+              className="w-full p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all pl-2" 
+              placeholder="Enter your phone number"
+            />
+          </div>
           {errors.phone && <span className="text-red-500 text-sm">{errors.phone}</span>}
         </div>
         <div className="flex justify-center mt-6">
@@ -109,6 +122,7 @@ const UserDataForm = () => {
             className="bg-blue-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-600 transition-all transform hover:scale-105"
             onClick={handleSave}
           >
+            <Save className="mr-2" />
             Save
           </button>
         </div>
