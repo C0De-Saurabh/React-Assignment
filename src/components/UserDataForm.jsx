@@ -1,3 +1,5 @@
+const { useState } = require("react");
+
 const UserDataForm = () => {
     const [formData, setFormData] = useState({
       id: Date.now(),
@@ -71,3 +73,5 @@ const UserDataForm = () => {
       </div>
     );
   };
+
+  export default UserDataForm;

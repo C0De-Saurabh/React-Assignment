@@ -9,4 +9,6 @@ const RichTextEditor = () => {
       </div>
     );
   };
+
   
+  export default RichTextEditor;

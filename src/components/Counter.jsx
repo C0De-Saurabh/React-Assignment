@@ -1,3 +1,7 @@
+import { useState } from 'react';
+import { useSpring, animated } from '@react-spring/web';
+
+
 const Counter = () => {
     const [count, setCount] = useState(0);
   
@@ -36,3 +40,5 @@ const Counter = () => {
       </animated.div>
     );
   };
+
+export default Counter;
