@@ -2,9 +2,12 @@ import { Link, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Counter from './components/Counter';
 import UserDataForm from './components/UserDataForm';
 import RichTextEditor from './components/RichTextEditor';
+import { Provider } from 'react-redux';
+import { store } from './redux/UserSlice';
 
 const App = () => {
   return (
+    <Provider store={store}>
     <Router>
       <div className="p-5 font-sans">
         <nav className="mb-5 space-x-4">
@@ -35,6 +38,8 @@ const App = () => {
         </Routes>
       </div>
     </Router>
+    </Provider>
+
   );
 };
 
