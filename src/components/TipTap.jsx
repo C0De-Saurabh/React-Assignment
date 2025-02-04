@@ -1,7 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { EditorProvider, EditorContent, useEditor } from "@tiptap/react";
+import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import Underline from "@tiptap/extension-underline";
+import TextAlign from "@tiptap/extension-text-align";
+import TextStyle from "@tiptap/extension-text-style";
+import FontFamily from "@tiptap/extension-font-family";
 
 const Tiptap = () => {
   // Get user data from Redux store
@@ -20,37 +24,114 @@ const Tiptap = () => {
 
   // Initialize the editor
   const editor = useEditor({
-    extensions: [StarterKit],
+    extensions: [
+      StarterKit,
+      Underline,
+      TextAlign.configure({ types: ["heading", "paragraph"] }),
+      TextStyle,
+      FontFamily.configure({
+        types: ["textStyle"],
+      }),
+    ],
     content,
   });
 
-  // Toolbar component to appear above the editor
-  const MyEditorToolbar = () => (
-    <div className="toolbar">
-      <button onClick={() => editor.chain().focus().toggleBold().run()}>Bold</button>
-      <button onClick={() => editor.chain().focus().toggleItalic().run()}>Italic</button>
-      <button onClick={() => editor.chain().focus().toggleUnderline?.().run()}>Underline</button>
-    </div>
-  );
+  // Toolbar component
+  const MyEditorToolbar = () => {
+    const fonts = [
+      { label: "Default", value: "" },
+      { label: "Arial", value: "Arial" },
+      { label: "Georgia", value: "Georgia" },
+      { label: "Courier New", value: "Courier New" },
+      { label: "Times New Roman", value: "Times New Roman" },
+      { label: "Verdana", value: "Verdana" },
+    ];
 
-  // Footer component to appear below the editor
-  const MyEditorFooter = () => (
-    <div className="footer">
-      <p>Editor Footer: Customize as needed</p>
-    </div>
-  );
+    return (
+      <div className="flex flex-wrap gap-2 mb-4 p-2 bg-gray-100 rounded shadow">
+        {/* Bold Button */}
+        <button
+          className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+          onMouseDown={(e) => {
+            e.preventDefault();
+            editor.chain().focus().toggleBold().run();
+          }}
+        >
+          Bold
+        </button>
+
+        {/* Font Family Dropdown */}
+        <select
+          className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
+          onChange={(e) => {
+            const font = e.target.value;
+            editor.chain().focus().setFontFamily(font).run();
+          }}
+        >
+          {fonts.map((font) => (
+            <option key={font.value} value={font.value}>
+              {font.label}
+            </option>
+          ))}
+        </select>
+
+        {/* Italic Button */}
+        <button
+          className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+          onMouseDown={(e) => {
+            e.preventDefault();
+            editor.chain().focus().toggleItalic().run();
+          }}
+        >
+          Italic
+        </button>
+
+        {/* Underline Button */}
+        <button
+          className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+          onMouseDown={(e) => {
+            e.preventDefault();
+            editor.chain().focus().toggleUnderline().run();
+          }}
+        >
+          Underline
+        </button>
+
+        {/* Strikethrough Button */}
+        <button
+          className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+          onMouseDown={(e) => {
+            e.preventDefault();
+            editor.chain().focus().toggleStrike().run();
+          }}
+        >
+          Strikethrough
+        </button>
+
+        {/* Clear Formatting Button */}
+        <button
+          className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+          onMouseDown={(e) => {
+            e.preventDefault();
+            editor.chain().focus().unsetAllMarks().run();
+          }}
+        >
+          Clear Formatting
+        </button>
+      </div>
+    );
+  };
 
   return (
-    <EditorProvider
-      editor={editor}
-      extensions={[StarterKit]}
-      content={content}
-      slotBefore={<MyEditorToolbar />} // Render toolbar above the editor
-      slotAfter={<MyEditorFooter />}   // Render footer below the editor
-      editorContainerProps={{ className: "editor-container", id: "editor-main-container" }} // Add custom props to container
-    >
-      <EditorContent editor={editor} />
-    </EditorProvider>
+    <div className="editor-container">
+      {/* Toolbar */}
+      <MyEditorToolbar />
+
+      {/* Editor Content */}
+      <div className="border p-4 rounded shadow">
+        <EditorContent editor={editor} />
+      </div>
+    </div>
   );
 };
 
