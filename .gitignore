@@ -1,24 +1,44 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Node.js
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
-
-# testing
-/coverage
-
-# production
+# Build output
+/dist
 /build
+/.next
+/public/build
 
-# misc
-.DS_Store
+# Dependencies
+/package-lock.json
+/yarn.lock
+
+# Environment Files
+.env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
-.env
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# Logs
+*.log
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+
+# Tiptap and other generated files
+.editorconfig
+
+# Coverage directory for Jest
+/coverage
+
+# Test / Debug directories
+*.tgz
+*.bak
